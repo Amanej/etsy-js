@@ -42,4 +42,24 @@ class Listing
       else
         cb null, body, headers
 
+  # Create the listings
+  # '/listings' POST
+  createListing: (params..., cb) ->
+    @client.post "/listings", params..., (err, status, body, headers) ->
+      return cb(err) if err
+      if status isnt 201
+        cb(new Error('Create listings error'))
+      else
+        cb null, body, headers
+
+  # Update a listing
+  # '/listings' PUT
+  updateListing: (params..., cb) ->
+    @client.put "/listings/#{@listingId}", params..., (err, status, body, headers) ->
+      return cb(err) if err
+      if status isnt 200
+        cb(new Error('Update listings error'))
+      else
+        cb null, body, headers
+
 module.exports = Listing
